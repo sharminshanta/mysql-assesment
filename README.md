@@ -1,2 +1,3 @@
-# mysql-assesment
-MYSQL assesment questions and answers that we face in coding interview.
+# MySQL-assessment(Leetcode Prolems)
+MYSQL assessment questions and answers that we face in coding interviews.
+
