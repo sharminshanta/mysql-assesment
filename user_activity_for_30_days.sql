@@ -46,7 +46,13 @@ Output:
 Explanation: Note that we do not care about days with zero active users.
 
 Solution:
-SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users 
+SELECT
+     activity_date as day,
+    COUNT(DISTINCT user_id) as active_users
+    
 FROM Activity
-WHERE DATEDIFF("2019-07-27", activity_date) < 30 
+where 
+    datediff('2019-07-27', activity_date) < 30
+        and
+    activity_date <= '2019-07-27'
 GROUP BY activity_date;
