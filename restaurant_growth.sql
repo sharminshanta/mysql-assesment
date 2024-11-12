@@ -19,10 +19,8 @@ Compute the moving average of how much the customer paid in a seven days window 
 Return the result table ordered by visited_on in ascending order.
 The result format is in the following example.
 
- 
 
 Example 1:
-
 Input: 
 Customer table:
 +-------------+--------------+--------------+-------------+
@@ -54,3 +52,13 @@ Explanation:
 2nd moving average from 2019-01-02 to 2019-01-08 has an average_amount of (110 + 120 + 130 + 110 + 140 + 150 + 80)/7 = 120
 3rd moving average from 2019-01-03 to 2019-01-09 has an average_amount of (120 + 130 + 110 + 140 + 150 + 80 + 110)/7 = 120
 4th moving average from 2019-01-04 to 2019-01-10 has an average_amount of (130 + 110 + 140 + 150 + 80 + 110 + 130 + 150)/7 = 142.86
+
+Solution:
+select a.visited_on, 
+    sum(b.amount) amount,
+    round(sum(b.amount)/7,2) average_amount
+from (select visited_on, sum(amount) amount from Customer GROUP BY visited_on) a, 
+    (select visited_on, sum(amount) amount from Customer GROUP BY visited_on) b 
+where datediff(a.visited_on,b.visited_on) between 0 and 6
+group by a.visited_on
+having count(distinct b.visited_on) = 7;
